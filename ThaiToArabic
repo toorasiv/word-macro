@@ -1,0 +1,42 @@
+Sub ThaiToArabic()
+
+    Dim i As Integer
+    Dim r As Range
+    Dim thaiDigits(9) As String
+
+    thaiDigits(0) = ChrW(&HE50)
+    thaiDigits(1) = ChrW(&HE51)
+    thaiDigits(2) = ChrW(&HE52)
+    thaiDigits(3) = ChrW(&HE53)
+    thaiDigits(4) = ChrW(&HE54)
+    thaiDigits(5) = ChrW(&HE55)
+    thaiDigits(6) = ChrW(&HE56)
+    thaiDigits(7) = ChrW(&HE57)
+    thaiDigits(8) = ChrW(&HE58)
+    thaiDigits(9) = ChrW(&HE59)
+
+    For i = 0 To 9
+
+        Set r = ActiveDocument.Content
+
+        With r.Find
+            .ClearFormatting
+            .Replacement.ClearFormatting
+
+            .Text = thaiDigits(i)
+            .Replacement.Text = CStr(i)
+
+            .Forward = True
+            .Wrap = wdFindContinue
+
+            .Format = False
+            .MatchCase = False
+            .MatchWholeWord = False
+            .MatchWildcards = False
+
+            .Execute Replace:=wdReplaceAll
+        End With
+
+    Next i
+
+End Sub
